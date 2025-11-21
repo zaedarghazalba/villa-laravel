@@ -1,6 +1,7 @@
 {
   "version": 2,
   "buildCommand": "npm install && npm run build",
+  "outputDirectory": "public",
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.1"
@@ -8,24 +9,9 @@
   },
   "routes": [
     {
-      "src": "/robots.txt",
-      "dest": "/public/robots.txt"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/public/favicon.ico"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/public/assets/$1"
-    },
-    {
-      "src": "/vendor/(.*)",
-      "dest": "/public/vendor/$1"
-    },
-    {
-      "src": "/build/(.*)",
-      "dest": "/public/build/$1"
+      "src": "/(.*\\.(css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot|webp|json|txt))",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" },
+      "continue": true
     },
     {
       "src": "/(.*)",
@@ -35,7 +21,7 @@
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "false",
-    "APP_URL": "https://yourapp.vercel.app",
+    "ASSET_URL": "https://yourapp.vercel.app",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
